@@ -10,9 +10,8 @@
 namespace EmployeeRegistrationpageUsingMVC.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Employeedata
+    public partial class showalldata_Result
     {
         public int Employee_ID { get; set; }
         public string Employee_Name { get; set; }
@@ -20,5 +19,7 @@ namespace EmployeeRegistrationpageUsingMVC.Models
         public string gender { get; set; }
         public string address { get; set; }
         public Nullable<int> state { get; set; }
+        public int stateid { get; set; }
+        public string statename { get; set; }
     }
 }
