@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container-fluid">
+    <div class="jumbotron">
+
+
+        <div class="row">
+            <div class="col-md-4">
+               
+                    <div class="form-group">
+                        <label for="txtemployee">Employeem Name</label>
+                        <input type="text" class="form-control" id="txtemployee" name="txtemployee" placeholder="Employee Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtdob">Date of birth</label>
+                        <input type="date" class="form-control" id="txtdob" name="txtdob" placeholder="enter date of birth">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <label for="rdogender">Gender</label>&nbsp;&nbsp;
+
+                            <input class="form-check-input" type="radio" name="rdogender" id="mrdo" value="M">
+                            <label class="form-check-label" for="mrdo">
+                                Male
+                            </label>
+                            <input class="form-check-input" type="radio" name="rdogender" id="frdo" value="F">
+                            <label class="form-check-label" for="frdo">
+                                Female
+                            </label>
+                        </div>
+                        </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Address</label>
+                        <input type="text" class="form-control" id="txtaddress" name="txtaddress" placeholder="Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="ddlstate">select state</label>
+                        <select class="form-control" id="ddlstate">
+                            <option value="">Select</option>
+                            <option value="jp">jaipur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chkcook" value="Cooking" name="chkhobbye">
+                            <label class="form-check-label" for="chkcook">
+                                Cooking
+                            </label>
+
+                            <input class="form-check-input" type="checkbox" id="chkread" value="Reading" name="chkhobbye">
+                            <label class="form-check-label" for="chkread">
+                                Reading
+                            </label>
+
+                            <input class="form-check-input" type="checkbox" id="chkwr" value="Writing" name="chkhobbye">
+                            <label class="form-check-label" for="chkwr">
+                                Writing
+                            </label>
+                            <input class="form-check-input" type="checkbox" id="chkphto" value="PhotoGraph" name="rdohobbye">
+                            <label class="form-check-label" for="chkphto">
+                                PhotoGraph
+                            </label>
+
+                        </div>
+                        <input type="hidden" id="hdchkval" name="hdchkval" value=""/>
+                    </div>
+                  <div><button type="button" id="btnsubmits" class="btn btn-success">Success</button></div>
+             
+            </div>
+            <div class="col-md-8">
+                <div id="tblempdata">
+                    @Html.Partial("_Employeepart")
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+    $('#chkhobbye:checked').each(function () {
+        hdchkval.push($(this).val());
+    });
+
+
+    $('#btnsubmits').click(function () {
+         $.ajax({
+                type: 'POST',
+             url: '@Url.Action("Add_Employee_data","Home")',
+             data: { txtemployee: $("#txtemployee").val(), txtdob: $("#txtdob").val(), rdogender: $("#rdogender").val(), rdogender: $('input[name="rdogender"]:checked').val(), txtaddress: $("#txtaddress").val(), ddlstate: $("#ddlstate").val(), chkhobbye: $('input[name="chkhobbye"]:checked').val() },
+                success: function (response) {
+
+
+
+                  
+
+                }
+
+            });
+
+
+    })
+
+</script>
