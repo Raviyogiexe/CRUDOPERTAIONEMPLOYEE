@@ -95,12 +95,15 @@
                     <div class="form-check">
                         @foreach(var hoby in item.hobieslist)
                         {
+                            if(hoby.hobyname == "Cooking")
+                    {
 
+                    }
                         chkcook = hoby.hobyname == "Cooking" ? "checked" : "";
                         chkread =  hoby.hobyname== "Reading" ? "checked" : "";
                         chkwrite = hoby.hobyname == "Writing" ? "checked" : "";
                         chkphoto = hoby.hobyname == "PhotoGraph" ? "checked" : "";
-                        hobyss = hobyss +","+ hoby.hobyname;
+                      
                         }
 
                         <input class="form-check-input checkedevent__@item.Employee_ID" type="checkbox" @chkcook value="Cooking" name="editchkhobbye_@item.Employee_ID">
