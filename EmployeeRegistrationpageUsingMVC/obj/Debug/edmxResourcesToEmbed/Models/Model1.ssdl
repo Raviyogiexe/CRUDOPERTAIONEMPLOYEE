@@ -5,22 +5,31 @@
       <PropertyRef Name="Employee_ID" />
     </Key>
     <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Employee_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Employee_Name" Type="varchar" MaxLength="50" />
     <Property Name="dob" Type="datetime" />
-    <Property Name="gender" Type="char" MaxLength="1" />
-    <Property Name="address" Type="varchar(max)" />
+    <Property Name="gender" Type="varchar" MaxLength="50" />
+    <Property Name="address" Type="varchar" MaxLength="50" />
     <Property Name="state" Type="int" />
-    <Property Name="hobbiesid" Type="int" />
+  </EntityType>
+  <EntityType Name="tblHobies">
+    <Key>
+      <PropertyRef Name="Hobyies" />
+    </Key>
+    <Property Name="Hobyies" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hobyname" Type="varchar" MaxLength="50" />
+    <Property Name="employeeid" Type="int" />
   </EntityType>
   <EntityType Name="tblstate">
     <Key>
       <PropertyRef Name="stateid" />
     </Key>
     <Property Name="stateid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="statename" Type="varchar" MaxLength="100" />
+    <Property Name="statename" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Function Name="showalldata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="dbEmployeeModelStoreContainer">
     <EntitySet Name="Employeedata" EntityType="Self.Employeedata" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblHobies" EntityType="Self.tblHobies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblstate" EntityType="Self.tblstate" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

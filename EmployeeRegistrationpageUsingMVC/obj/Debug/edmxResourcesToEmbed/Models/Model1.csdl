@@ -1,26 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="dbEmployeeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="dbEmployeeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employeedatas" EntityType="dbEmployeeModel.Employeedata" />
+    <EntitySet Name="tblstates" EntityType="dbEmployeeModel.tblstate" />
+    <EntitySet Name="tblHobies" EntityType="dbEmployeeModel.tblHoby" />
+    <FunctionImport Name="showalldata" ReturnType="Collection(dbEmployeeModel.showalldata_Result)" />
+  </EntityContainer>
   <EntityType Name="Employeedata">
     <Key>
       <PropertyRef Name="Employee_ID" />
     </Key>
     <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Employee_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Employee_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dob" Type="DateTime" Precision="3" />
-    <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="state" Type="Int32" />
-    <Property Name="hobbiesid" Type="Int32" />
   </EntityType>
   <EntityType Name="tblstate">
     <Key>
       <PropertyRef Name="stateid" />
     </Key>
     <Property Name="stateid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="statename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="statename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityContainer Name="dbEmployeeEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Employeedatas" EntityType="Self.Employeedata" />
-    <EntitySet Name="tblstates" EntityType="Self.tblstate" />
-  </EntityContainer>
+  <EntityType Name="tblHoby">
+    <Key>
+      <PropertyRef Name="Hobyies" />
+    </Key>
+    <Property Name="Hobyies" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hobyname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="employeeid" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="showalldata_Result">
+    <Property Type="Int32" Name="Employee_ID" Nullable="false" />
+    <Property Type="String" Name="Employee_Name" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="dob" Nullable="true" Precision="23" />
+    <Property Type="String" Name="gender" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="state" Nullable="true" />
+    <Property Type="Int32" Name="stateid" Nullable="false" />
+    <Property Type="String" Name="statename" Nullable="true" MaxLength="50" />
+  </ComplexType>
 </Schema>

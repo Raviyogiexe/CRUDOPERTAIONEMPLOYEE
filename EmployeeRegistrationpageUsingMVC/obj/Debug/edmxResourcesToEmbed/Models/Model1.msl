@@ -4,23 +4,45 @@
     <EntitySetMapping Name="Employeedatas">
       <EntityTypeMapping TypeName="dbEmployeeModel.Employeedata">
         <MappingFragment StoreEntitySet="Employeedata">
-          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
-          <ScalarProperty Name="dob" ColumnName="dob" />
-          <ScalarProperty Name="gender" ColumnName="gender" />
-          <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="hobbiesid" ColumnName="hobbiesid" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tblstates">
       <EntityTypeMapping TypeName="dbEmployeeModel.tblstate">
         <MappingFragment StoreEntitySet="tblstate">
-          <ScalarProperty Name="stateid" ColumnName="stateid" />
           <ScalarProperty Name="statename" ColumnName="statename" />
+          <ScalarProperty Name="stateid" ColumnName="stateid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tblHobies">
+      <EntityTypeMapping TypeName="dbEmployeeModel.tblHoby">
+        <MappingFragment StoreEntitySet="tblHobies">
+          <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+          <ScalarProperty Name="hobyname" ColumnName="hobyname" />
+          <ScalarProperty Name="Hobyies" ColumnName="Hobyies" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="showalldata" FunctionName="dbEmployeeModel.Store.showalldata">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbEmployeeModel.showalldata_Result">
+          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="stateid" ColumnName="stateid" />
+          <ScalarProperty Name="statename" ColumnName="statename" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

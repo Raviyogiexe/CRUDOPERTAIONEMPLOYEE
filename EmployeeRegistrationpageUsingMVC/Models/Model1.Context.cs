@@ -12,6 +12,8 @@ namespace EmployeeRegistrationpageUsingMVC.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class dbEmployeeEntities : DbContext
     {
@@ -27,5 +29,11 @@ namespace EmployeeRegistrationpageUsingMVC.Models
     
         public virtual DbSet<Employeedata> Employeedatas { get; set; }
         public virtual DbSet<tblstate> tblstates { get; set; }
+        public virtual DbSet<tblHoby> tblHobies { get; set; }
+    
+        public virtual ObjectResult<showalldata_Result> showalldata()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<showalldata_Result>("showalldata");
+        }
     }
 }

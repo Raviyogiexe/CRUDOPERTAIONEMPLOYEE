@@ -4,58 +4,85 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbEmployeeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbEmployeeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Employeedata">
           <Key>
             <PropertyRef Name="Employee_ID" />
           </Key>
           <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Employee_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Employee_Name" Type="varchar" MaxLength="50" />
           <Property Name="dob" Type="datetime" />
-          <Property Name="gender" Type="char" MaxLength="1" />
-          <Property Name="address" Type="varchar(max)" />
+          <Property Name="gender" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="varchar" MaxLength="50" />
           <Property Name="state" Type="int" />
-          <Property Name="hobbiesid" Type="int" />
+        </EntityType>
+        <EntityType Name="tblHobies">
+          <Key>
+            <PropertyRef Name="Hobyies" />
+          </Key>
+          <Property Name="Hobyies" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hobyname" Type="varchar" MaxLength="50" />
+          <Property Name="employeeid" Type="int" />
         </EntityType>
         <EntityType Name="tblstate">
           <Key>
             <PropertyRef Name="stateid" />
           </Key>
           <Property Name="stateid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="statename" Type="varchar" MaxLength="100" />
+          <Property Name="statename" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Function Name="showalldata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="dbEmployeeModelStoreContainer">
           <EntitySet Name="Employeedata" EntityType="Self.Employeedata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHobies" EntityType="Self.tblHobies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblstate" EntityType="Self.tblstate" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbEmployeeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbEmployeeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employeedatas" EntityType="dbEmployeeModel.Employeedata" />
+          <EntitySet Name="tblstates" EntityType="dbEmployeeModel.tblstate" />
+          <EntitySet Name="tblHobies" EntityType="dbEmployeeModel.tblHoby" />
+          <FunctionImport Name="showalldata" ReturnType="Collection(dbEmployeeModel.showalldata_Result)" />
+        </EntityContainer>
         <EntityType Name="Employeedata">
           <Key>
             <PropertyRef Name="Employee_ID" />
           </Key>
           <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Employee_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="dob" Type="DateTime" Precision="3" />
-          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="state" Type="Int32" />
-          <Property Name="hobbiesid" Type="Int32" />
         </EntityType>
         <EntityType Name="tblstate">
           <Key>
             <PropertyRef Name="stateid" />
           </Key>
           <Property Name="stateid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="statename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="statename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="dbEmployeeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Employeedatas" EntityType="Self.Employeedata" />
-          <EntitySet Name="tblstates" EntityType="Self.tblstate" />
-        </EntityContainer>
+        <EntityType Name="tblHoby">
+          <Key>
+            <PropertyRef Name="Hobyies" />
+          </Key>
+          <Property Name="Hobyies" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hobyname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="employeeid" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="showalldata_Result">
+          <Property Type="Int32" Name="Employee_ID" Nullable="false" />
+          <Property Type="String" Name="Employee_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="dob" Nullable="true" Precision="23" />
+          <Property Type="String" Name="gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="Int32" Name="stateid" Nullable="false" />
+          <Property Type="String" Name="statename" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -65,24 +92,46 @@
           <EntitySetMapping Name="Employeedatas">
             <EntityTypeMapping TypeName="dbEmployeeModel.Employeedata">
               <MappingFragment StoreEntitySet="Employeedata">
-                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
-                <ScalarProperty Name="dob" ColumnName="dob" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="hobbiesid" ColumnName="hobbiesid" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblstates">
             <EntityTypeMapping TypeName="dbEmployeeModel.tblstate">
               <MappingFragment StoreEntitySet="tblstate">
-                <ScalarProperty Name="stateid" ColumnName="stateid" />
                 <ScalarProperty Name="statename" ColumnName="statename" />
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblHobies">
+            <EntityTypeMapping TypeName="dbEmployeeModel.tblHoby">
+              <MappingFragment StoreEntitySet="tblHobies">
+                <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+                <ScalarProperty Name="hobyname" ColumnName="hobyname" />
+                <ScalarProperty Name="Hobyies" ColumnName="Hobyies" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="showalldata" FunctionName="dbEmployeeModel.Store.showalldata">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbEmployeeModel.showalldata_Result">
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
+                <ScalarProperty Name="statename" ColumnName="statename" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

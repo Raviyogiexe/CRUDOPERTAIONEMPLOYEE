@@ -1,4 +1,4 @@
-﻿
+﻿@model List<EmployeeRegistrationpageUsingMVC.ViewModel.EmployeeViewModel>
 <table class="table">
     <thead>
         <tr>
@@ -9,23 +9,36 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var item in Model)
+        {
+            List<string> hobystr = new List<string>();
+            string hobyss="";
+            foreach(var hoby in item.hobieslist)
+            {
+                hobyss = hobyss +","+ hoby.hobyname;
+            }
+
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@@mdo</td>
+          <td>
+              @item.Employee_Name
+          </td>
+            <td>
+                @item.dob
+            </td>
+            <td>
+                @item.address
+            </td>
+            <td>
+                @item.gender
+            </td>
+            <td>
+                @item.statename
+            </td>
+            <td>
+                @hobyss.TrimStart(',');
+
+            </td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@@twitter</td>
-        </tr>
+        }
     </tbody>
 </table>

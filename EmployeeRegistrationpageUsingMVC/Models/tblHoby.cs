@@ -12,13 +12,10 @@ namespace EmployeeRegistrationpageUsingMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Employeedata
+    public partial class tblHoby
     {
-        public int Employee_ID { get; set; }
-        public string Employee_Name { get; set; }
-        public Nullable<System.DateTime> dob { get; set; }
-        public string gender { get; set; }
-        public string address { get; set; }
-        public Nullable<int> state { get; set; }
+        public int Hobyies { get; set; }
+        public string hobyname { get; set; }
+        public Nullable<int> employeeid { get; set; }
     }
 }

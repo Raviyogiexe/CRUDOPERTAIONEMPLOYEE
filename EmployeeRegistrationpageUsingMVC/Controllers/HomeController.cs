@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EmployeeRegistrationpageUsingMVC.Models;
+using EmployeeRegistrationpageUsingMVC.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,15 +12,69 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ViewBag.ddlstate = new SelectList(db.tblstates, "stateid", "statename");
+            List<EmployeeViewModel> listviewmodel = bindempdata();
+            return View(listviewmodel);
         }
-
-        public ActionResult Add_Employee_data(string txtemployee, string txtdob, string[] rdogender, string txtaddress, string ddlstate, string[] chkhobbye)
+        dbEmployeeEntities db = new dbEmployeeEntities();
+        public ActionResult Add_Employee_data(string txtemployee, DateTime txtdob, string rdogender, string txtaddress, int ddlstate, string chkhobbye)
         {
+            string[] splitstr = chkhobbye.Split(',');
+            List<string> liststr = new List<string>();
 
-            return PartialView("_Employeepart");
+            Employeedata tbl = new Employeedata();
+            tbl.Employee_Name = txtemployee;
+            tbl.dob = txtdob;
+            tbl.gender = rdogender;
+            tbl.address = txtaddress;
+            tbl.state = ddlstate;
+            db.Employeedatas.Add(tbl);
+            db.SaveChanges();
+
+            foreach (string hoby in splitstr)
+            {
+                tblHoby tblh = new tblHoby();
+                tblh.hobyname = hoby;
+                tblh.employeeid = tbl.Employee_ID;
+
+                db.tblHobies.Add(tblh);
+                db.SaveChanges();
+
+            }
+            List<EmployeeViewModel> listviewmodel = bindempdata();
+
+            return PartialView("_Employeepart", listviewmodel);
         }
 
+        public ActionResult ShowALLData()
+        {
+            List<EmployeeViewModel> listviewmodel = bindempdata();
+
+            return PartialView("_Employeepart", listviewmodel);
+        }
+
+        private List<EmployeeViewModel> bindempdata()
+        {
+            List<EmployeeViewmodellist> listmo = new List<EmployeeViewmodellist>();
+            List<EmployeeViewModel> listviewmodel = new List<EmployeeViewModel>();
+            var result = db.showalldata();
+            foreach (var item in result)
+            {
+                EmployeeViewModel vmodel = new EmployeeViewModel();
+                vmodel.Employee_ID = item.Employee_ID;
+                vmodel.Employee_Name = item.Employee_Name;
+                vmodel.gender = item.gender;
+                vmodel.state = item.state;
+                vmodel.statename = item.statename;
+                vmodel.address = item.address;
+                vmodel.gender = item.gender;
+                vmodel.hobieslist = db.tblHobies.Where(x => x.employeeid == item.Employee_ID).ToList();
+                listviewmodel.Add(vmodel);
+
+            }
+
+            return listviewmodel;
+        }
 
         public ActionResult About()
         {
@@ -31,7 +87,7 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            return View();                           
         }
     }
 }
