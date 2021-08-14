@@ -124,3 +124,76 @@
         })
 
 </script>
+
+<script>
+    var tbledt = "#tbledt_";
+    var tblsave = "#tblsave_";
+    var tblshowsave = "#tblshowsave";
+    var empname = "#empname_";
+    var txtbith = "#txtbith_";
+    var tbledtrdo = "#tbledtrdo_";
+    var tblddltrdo = "#tblddltrdo_";
+    var tbledtbutton = "#tbledtbutton_";
+    var tblshowsavecls = ".tblshowsave_";
+    var tblnotshowsave = ".tblnotshowsave";
+    function Editdata(empid) {
+
+
+        $.ajax({
+            url: '@Url.Action("GetALLStates", "Home")',
+            data: { emid: empid },
+            cache: false,
+            type: "POST",
+            success: function (data1) {
+                debugger;
+                var markup = "<option value='0'>Select State</option>";
+                for (var x = 0; x < data1.statelist.length; x++) {
+                    if (data1.statelist[x].stateid == data1.statidss) {
+                        markup += "<option value=" + data1.statelist[x].stateid + " selected>" + data1.statelist[x].statename+ "</option>";
+                    }
+                    else {
+                        markup += "<option value=" + data1.statelist[x].stateid + ">" + data1.statelist[x].statename + "</option>";
+                    }
+                }
+                $("#ddldrop_" + empid).html(markup).show();
+             
+            }
+
+        });
+
+
+       // tbledt = "#tbledt_" + empid;
+       // tblsave = "#tblsave_" + empid;
+        $(".tblshowsave").show();
+        $(".tblnotshowsave").hide();
+        $(tbledt + empid).hide();
+        $(tblsave + empid).show();
+        $(tblshowsave + empid).show();
+        $(tblshowsavecls + empid).hide();
+        $(tblddltrdo + empid).show();
+        $(empname + empid).show();
+        $(txtbith + empid).show();
+        $(tbledtrdo + empid).show();
+        $(tbledtbutton + empid).show();
+
+
+    }
+
+
+ 
+
+    function Savedata(empid) {
+        $(tblsave + empid).hide();
+        $(tbledt + empid).show();
+
+        $(tblshowsave + empid).hUrlde();
+        $(empname + empid).hide();
+        $(txtbith + empid).hide();
+        $(tbledtrdo + empid).hide();
+        $(tbledtbutton + empid).hide();
+
+    }
+
+
+
+</script>

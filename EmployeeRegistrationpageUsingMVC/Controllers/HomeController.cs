@@ -13,6 +13,7 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
         public ActionResult Index()
         {
             ViewBag.ddlstate = new SelectList(db.tblstates, "stateid", "statename");
+           
             List<EmployeeViewModel> listviewmodel = bindempdata();
             return View(listviewmodel);
         }
@@ -74,6 +75,23 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
             }
 
             return listviewmodel;
+        }
+
+
+        public ActionResult GetALLStates(int emid)
+        {
+            var stateid = db.Employeedatas.Where(x => x.Employee_ID == emid).FirstOrDefault().state;
+            var statelist = db.tblstates.Select(x => new
+            {
+                stateid = x.stateid,
+                statename = x.statename
+
+            }).ToList();
+
+
+            return Json(new { statelist = statelist, statidss = stateid}, JsonRequestBehavior.AllowGet);
+
+        
         }
 
         public ActionResult About()

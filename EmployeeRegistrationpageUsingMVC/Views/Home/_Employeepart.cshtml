@@ -2,40 +2,134 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">dob</th>
+            <th scope="col">address</th>
+            <th scope="col">gender</th>
+            <th scope="col">state name</th>
+            <th scope="col">hobyies</th>
+            <th scope="col">action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
+            var chMkval = "";
+            chMkval = item.gender == "M" ? "checked" : "";
+            var chFkval="";
+            chFkval = item.gender == "F" ? "checked" : "";
             List<string> hobystr = new List<string>();
             string hobyss="";
+
+            string chkcook = "";
+            string chkread = "";
+            string chkwrite = "";
+            string chkphoto = "";
+
             foreach(var hoby in item.hobieslist)
             {
+
+              
                 hobyss = hobyss +","+ hoby.hobyname;
             }
 
         <tr>
-          <td>
-              @item.Employee_Name
-          </td>
             <td>
-                @item.dob
+                <div class="tblshowsave tblshowsave_@item.Employee_ID">
+                    @item.Employee_Name
+
+                    </div>
+                    <div style="display:none" class="form-group tblnotshowsave" id="empname_@item.Employee_ID">
+                        <input type="text" class="form-control" id="txtemployee_@item.Employee_ID" name="txtemployee_@item.Employee_ID" placeholder="Employee Name">
+                    </div>
             </td>
             <td>
-                @item.address
+                <div class="tblshowsave  tblshowsave_@item.Employee_ID">
+                    @item.dob
+                    </div>
+                    <div style="display:none" class="form-group tblnotshowsave" id="txtbith_@item.Employee_ID">
+                        <input type="date" class="form-control" id="txtdob_@item.Employee_ID" name="txtdob_@item.Employee_ID" placeholder="enter date of birth">
+                    </div>
             </td>
             <td>
-                @item.gender
+                <div class="tblshowsave  tblshowsave_@item.Employee_ID">
+                    @item.address
+                    </div>
             </td>
             <td>
-                @item.statename
+                <div class="tblshowsave  tblshowsave_@item.Employee_ID">
+                    @item.gender
+                    </div>
+                <div style="display:none" class="form-group tblnotshowsave" id="tbledtrdo_@item.Employee_ID">
+
+
+                    Male <input class="form-check-input RDOCHECKED_@item.Employee_ID" @chMkval type="radio" name="editrdogender_@item.Employee_ID" value="M">
+                    Female
+                    <input class="form-check-input RDOCHECKED_@item.Employee_ID" type="radio" @chFkval name="editrdogender_@item.Employee_ID" value="F">
+                </div>
+
             </td>
             <td>
-                @hobyss.TrimStart(',');
+                <div class="tblshowsave  tblshowsave_@item.Employee_ID">
+
+
+
+                    @item.statename
+                    </div>
+                <div style="display:none" class="form-group tblnotshowsave" id="tblddltrdo_@item.Employee_ID">
+
+                   
+
+                    <select id="ddldrop_@item.Employee_ID">
+                        <option>select</option>
+
+                    </select>
+                </div>
+
+            </td>
+            <td>
+                <div  class="tblshowsave  tblshowsave_@item.Employee_ID">
+                    @hobyss.TrimStart(',');
+                </div>
+                <div style="display:none" class="form-group tblnotshowsave" id="tbledtbutton_@item.Employee_ID" >
+                    <div class="form-check">
+                        @foreach(var hoby in item.hobieslist)
+                        {
+
+                        chkcook = hoby.hobyname == "Cooking" ? "checked" : "";
+                        chkread =  hoby.hobyname== "Reading" ? "checked" : "";
+                        chkwrite = hoby.hobyname == "Writing" ? "checked" : "";
+                        chkphoto = hoby.hobyname == "PhotoGraph" ? "checked" : "";
+                        hobyss = hobyss +","+ hoby.hobyname;
+                        }
+
+                        <input class="form-check-input checkedevent__@item.Employee_ID" type="checkbox" @chkcook value="Cooking" name="editchkhobbye_@item.Employee_ID">
+                        <label class="form-check-label" for="chkcook">
+                            Cooking
+                        </label>
+
+                        <input class="form-check-input checkedevent__@item.Employee_ID" type="checkbox" @chkread value="Reading" name="editchkhobbye_@item.Employee_ID">
+                        <label class="form-check-label" for="chkread">
+                            Reading
+                        </label>
+
+                        <input class="form-check-input checkedevent_@item.Employee_ID" type="checkbox" @chkwrite value="Writing" name="editchkhobbye_@item.Employee_ID"> Writing
+
+                        <input class="form-check-input checkedevent_@item.Employee_ID" type="checkbox" @chkphoto value="PhotoGraph" name="editchkhobbye_@item.Employee_ID"> PhotoGraph
+
+
+                    </div>
+                    <input type="hidden" id="hdchkval_@item.Employee_ID" name="hdchkval_@item.Employee_ID" value="" />
+
+                </div>
+
+            </td>
+            <td id="tbledt_@item.Employee_ID" class="tblshowsave">
+                <button type="button" class="btnedit" onclick="Editdata('@item.Employee_ID')">Edit</button>
+
+            </td>
+            <td style="display:none" id="tblsave_@item.Employee_ID" class="tblnotshowsave">
+                <button type="button" class="btnedit" onclick="Savedata('@item.Employee_ID')">Save</button>
 
             </td>
         </tr>
