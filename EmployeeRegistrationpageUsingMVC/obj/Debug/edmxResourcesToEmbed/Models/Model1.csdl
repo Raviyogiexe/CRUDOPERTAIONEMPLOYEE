@@ -5,6 +5,14 @@
     <EntitySet Name="tblstates" EntityType="dbEmployeeModel.tblstate" />
     <EntitySet Name="tblHobies" EntityType="dbEmployeeModel.tblHoby" />
     <FunctionImport Name="showalldata" ReturnType="Collection(dbEmployeeModel.showalldata_Result)" />
+    <FunctionImport Name="insertaempdataproc" ReturnType="Collection(dbEmployeeModel.insertaempdataproc_Result)">
+      <Parameter Name="empname" Mode="In" Type="String" />
+      <Parameter Name="dob" Mode="In" Type="DateTime" />
+      <Parameter Name="gender" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="idno" Mode="InOut" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Employeedata">
     <Key>
@@ -41,5 +49,8 @@
     <Property Type="Int32" Name="state" Nullable="true" />
     <Property Type="Int32" Name="stateid" Nullable="false" />
     <Property Type="String" Name="statename" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="insertaempdataproc_Result">
+    <Property Type="Int32" Name="idno" Nullable="true" />
   </ComplexType>
 </Schema>

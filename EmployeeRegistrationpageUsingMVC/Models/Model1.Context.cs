@@ -35,5 +35,30 @@ namespace EmployeeRegistrationpageUsingMVC.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<showalldata_Result>("showalldata");
         }
+    
+        public virtual ObjectResult<insertaempdataproc_Result> insertaempdataproc(string empname, Nullable<System.DateTime> dob, string gender, string address, Nullable<int> state, ObjectParameter idno)
+        {
+            var empnameParameter = empname != null ?
+                new ObjectParameter("empname", empname) :
+                new ObjectParameter("empname", typeof(string));
+    
+            var dobParameter = dob.HasValue ?
+                new ObjectParameter("dob", dob) :
+                new ObjectParameter("dob", typeof(System.DateTime));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("gender", gender) :
+                new ObjectParameter("gender", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("address", address) :
+                new ObjectParameter("address", typeof(string));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<insertaempdataproc_Result>("insertaempdataproc", empnameParameter, dobParameter, genderParameter, addressParameter, stateParameter, idno);
+        }
     }
 }

@@ -26,6 +26,14 @@
     <Property Name="stateid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="statename" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Function Name="insertaempdataproc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="empname" Type="varchar(max)" Mode="In" />
+    <Parameter Name="dob" Type="datetime" Mode="In" />
+    <Parameter Name="gender" Type="varchar" Mode="In" />
+    <Parameter Name="address" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="idno" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="showalldata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="dbEmployeeModelStoreContainer">
     <EntitySet Name="Employeedata" EntityType="Self.Employeedata" Schema="dbo" store:Type="Tables" />

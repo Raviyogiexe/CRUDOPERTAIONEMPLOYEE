@@ -44,5 +44,12 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="insertaempdataproc" FunctionName="dbEmployeeModel.Store.insertaempdataproc">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbEmployeeModel.insertaempdataproc_Result">
+          <ScalarProperty Name="idno" ColumnName="idno" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

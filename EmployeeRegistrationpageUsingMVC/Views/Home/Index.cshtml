@@ -103,8 +103,11 @@
 
 
     $('#btnsubmits').click(function () {
-        if ($('#txtemployee').val() == "" && $('#txtaddress').val() == "") {
-            alert($('input[name="rdogender"]:checked').val());
+        if ($('#txtemployee').val() == "" || $('#txtaddress').val() == "" || $('#ddlstate').val() == "" || $('#txtdob').val() == "") {
+            alert("employee name address,date and state is Required");
+        }
+        else {
+           // alert($('input[name="rdogender"]:checked').val());
             var rdoval = $('input[name="rdogender"]:checked').val();
 
             $.ajax({
@@ -120,8 +123,8 @@
                 }
 
             });
-
         }
+        
       })
 
 </script>
@@ -144,8 +147,9 @@
         var txtdob = "#txtdob_" + empid;
         var txtaddress = "#txtaddress_" + empid;
         var ddldrop = "#ddldrop_" + empid;
+      
+    /*Employee_ID*/
 
-        /*Employee_ID*/
         $.ajax({
             url: '@Url.Action("GetALLStates", "Home")',
             data: { emid: empid },
@@ -215,6 +219,8 @@
     function Savedata(empid) {
         debugger;
 
+       
+      
         var txtemployee = "#txtemployee_" + empid;
         var txtdob_ = "#txtdob_" + empid;
         var txtaddress = "#txtaddress_" + empid;
@@ -222,34 +228,40 @@
         var RDOCHECKED = "#RDOCHECKED_" + empid;
         var nameeditrdogender = "editrdogender_" + empid;
         var hdchkval = "#hdchkval_" + empid;
-
         var checkedevent = ".checkedevent_" + empid;
         $(hdchkval).val('')
-        var array = [];
-        $(checkedevent + ':checkbox:checked').each(function (i) {
-            array.push($(this).val());
+       
+        if ($(txtemployee).val() == "" || $(txtdob).val() == "" || $(txtaddress).val() == "" || $("#ddldrop_" + empid).val() == "" || $("#ddldrop_" + empid).val() == 0) {
+            alert("employee name address,date and state is Required");
+        }
+        else {
+            var array = [];
+            $(checkedevent + ':checkbox:checked').each(function (i) {
+                array.push($(this).val());
 
-        });
-        $(hdchkval).val(array)
+            });
+            $(hdchkval).val(array)
 
 
-       // var rdoval = $(RDOCHECKED + 'input[name="' + nameeditrdogender+'"]:checked').val();
-        var rdoval = $('input[name="' + nameeditrdogender + '"]:checked').val();
+            // var rdoval = $(RDOCHECKED + 'input[name="' + nameeditrdogender+'"]:checked').val();
+            var rdoval = $('input[name="' + nameeditrdogender + '"]:checked').val();
 
-             $.ajax({
-                    type: 'POST',
-                 url: '@Url.Action("Update_Employee_data","Home")',
-                 data: { empid: empid, txtemployee: $(txtemployee).val(), txtdob: $(txtdob_).val(), rdogender: rdoval, txtaddress: $(txtaddress).val(), ddlstate: $(ddldrop).val(), chkhobbye: $(hdchkval).val() },
-                    success: function (response) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Update_Employee_data","Home")',
+                data: { empid: empid, txtemployee: $(txtemployee).val(), txtdob: $(txtdob_).val(), rdogender: rdoval, txtaddress: $(txtaddress).val(), ddlstate: $(ddldrop).val(), chkhobbye: $(hdchkval).val() },
+                success: function (response) {
 
-                      $(".tblshowsave").show();
-                  $(".tblnotshowsave").hide();
+                    $(".tblshowsave").show();
+                    $(".tblnotshowsave").hide();
 
-                        $('#tblempdata').html(response);
+                    $('#tblempdata').html(response);
 
-                    }
+                }
 
-                });
+            });
+
+        }
 
 
         //$(tbledt + empid).hide();
