@@ -213,8 +213,7 @@
 
     function Savedata(empid) {
         debugger;
-      //  $(".tblshowsave").show();
-      //  $(".tblnotshowsave").hide();
+    
         var txtemployee = "#txtemployee_" + empid;
         var txtdob_ = "#txtdob_" + empid;
         var txtaddress = "#txtaddress_" + empid;
@@ -242,9 +241,10 @@
                  data: { empid: empid, txtemployee: $(txtemployee).val(), txtdob: $(txtdob_).val(), rdogender: rdoval, txtaddress: $(txtaddress).val(), ddlstate: $(ddldrop).val(), chkhobbye: $(hdchkval).val() },
                     success: function (response) {
 
+                      $(".tblshowsave").show();
+                  $(".tblnotshowsave").hide();
 
-
-
+                        $('#tblempdata').html(response);
 
                     }
 
