@@ -47,6 +47,68 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
             return PartialView("_Employeepart", listviewmodel);
         }
 
+
+        public ActionResult Update_Employee_data(int empid,  string txtemployee, DateTime txtdob, string rdogender, string txtaddress, int ddlstate, string chkhobbye)
+        {
+
+            var empdata = db.Employeedatas.Where(x => x.Employee_ID == empid).FirstOrDefault();
+            if (empdata != null)
+            {
+                empdata.Employee_Name = txtemployee;
+                empdata.dob = txtdob;
+                empdata.gender = rdogender;
+                empdata.address = txtaddress;
+                empdata.state = ddlstate;
+
+                db.SaveChanges();
+            }
+            var tblhdel = db.tblHobies.Where(x => x.employeeid == empdata.Employee_ID).ToList();
+            db.tblHobies.RemoveRange(tblhdel);
+            db.SaveChanges();
+            string[] splitstr = chkhobbye.Split(',');
+            List<string> liststr = new List<string>();
+            foreach (string hoby in splitstr)
+            {
+              
+                tblHoby tblh = new tblHoby();
+                tblh.hobyname = hoby;
+                tblh.employeeid = empdata.Employee_ID;
+
+                db.tblHobies.Add(tblh);
+                db.SaveChanges();
+
+            }
+
+
+
+
+            //Employeedata tbl = new Employeedata();
+            //tbl.Employee_Name = txtemployee;
+            //tbl.dob = txtdob;
+            //tbl.gender = rdogender;
+            //tbl.address = txtaddress;
+            //tbl.state = ddlstate;
+            //db.Employeedatas.Add(tbl);
+            //db.SaveChanges();
+
+            //foreach (string hoby in splitstr)
+            //{
+            //    tblHoby tblh = new tblHoby();
+            //    tblh.hobyname = hoby;
+            //    tblh.employeeid = tbl.Employee_ID;
+
+            //    db.tblHobies.Add(tblh);
+            //    db.SaveChanges();
+
+            //}
+            List<EmployeeViewModel> listviewmodel = bindempdata();
+
+            return PartialView("_Employeepart", listviewmodel);
+        }
+
+
+
+
         public ActionResult ShowALLData()
         {
             List<EmployeeViewModel> listviewmodel = bindempdata();
@@ -80,18 +142,24 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
 
         public ActionResult GetALLStates(int emid)
         {
-            var stateid = db.Employeedatas.Where(x => x.Employee_ID == emid).FirstOrDefault().state;
-            var statelist = db.tblstates.Select(x => new
+            var employeedata = db.Employeedatas.Where(x => x.Employee_ID == emid).FirstOrDefault();
+            if (employeedata != null)
             {
-                stateid = x.stateid,
-                statename = x.statename
+                var statelist = db.tblstates.Select(x => new
+                {
+                    stateid = x.stateid,
+                    statename = x.statename
 
-            }).ToList();
+                }).ToList();
 
 
-            return Json(new { statelist = statelist, statidss = stateid}, JsonRequestBehavior.AllowGet);
+                return Json(new { statelist = statelist, employeedata = employeedata, status = "Success" }, JsonRequestBehavior.AllowGet);
 
-        
+            }
+            else
+            {
+                return Json(new { statelist = "", employeedata = "", status="Failed" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult About()

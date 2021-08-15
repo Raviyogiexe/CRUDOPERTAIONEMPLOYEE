@@ -76,7 +76,6 @@ C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistration
 C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\bin\Newtonsoft.Json.xml
 C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\bin\Antlr3.Runtime.pdb
 C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\obj\Debug\EmployeeRegistrationpageUsingMVC.csprojAssemblyReference.cache
 C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\obj\Debug\EmployeeRegistrationpageUsingMVC.csproj.CoreCompileInputs.cache
 C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\obj\Debug\EmployeeRegistrationpageUsingMVC.csproj.CopyComplete
 C:\Users\DELL\source\repos\EmployeeRegistrationpageUsingMVC\EmployeeRegistrationpageUsingMVC\obj\Debug\EmployeeRegistrationpageUsingMVC.dll

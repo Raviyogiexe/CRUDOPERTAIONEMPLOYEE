@@ -134,11 +134,17 @@
     var tbledtrdo = "#tbledtrdo_";
     var tblddltrdo = "#tblddltrdo_";
     var tbledtbutton = "#tbledtbutton_";
+    var tbladdress = "#tbladdress_";
     var tblshowsavecls = ".tblshowsave_";
     var tblnotshowsave = ".tblnotshowsave";
     function Editdata(empid) {
 
+        var txtemployee = "#txtemployee_" + empid;
+        var txtdob = "#txtdob_" + empid;
+        var txtaddress = "#txtaddress_" + empid;
+        var ddldrop = "#ddldrop_" + empid;
 
+        /*Employee_ID*/
         $.ajax({
             url: '@Url.Action("GetALLStates", "Home")',
             data: { emid: empid },
@@ -146,17 +152,42 @@
             type: "POST",
             success: function (data1) {
                 debugger;
-                var markup = "<option value='0'>Select State</option>";
-                for (var x = 0; x < data1.statelist.length; x++) {
-                    if (data1.statelist[x].stateid == data1.statidss) {
-                        markup += "<option value=" + data1.statelist[x].stateid + " selected>" + data1.statelist[x].statename+ "</option>";
+                $(ddldrop).empty()
+                if (data1.status = "Success") {
+                  
+                    var markup = "<option value='0'>Select State</option>";
+                    for (var x = 0; x < data1.statelist.length; x++) {
+                        if (data1.statelist[x].stateid == data1.employeedata.state) {
+                            markup += "<option value=" + data1.statelist[x].stateid + " selected>" + data1.statelist[x].statename + "</option>";
+                        }
+                        else {
+                            markup += "<option value=" + data1.statelist[x].stateid + ">" + data1.statelist[x].statename + "</option>";
+                        }
                     }
-                    else {
-                        markup += "<option value=" + data1.statelist[x].stateid + ">" + data1.statelist[x].statename + "</option>";
-                    }
+                    $("#ddldrop_" + empid).html(markup).show();
+                   
+                    var date = new Date(parseInt((data1.employeedata.dob).match(/\d+/)[0]))
+                    var createddate = converttoDate(date);
+
+                    $(txtemployee).val(data1.employeedata.Employee_Name)
+                    $(txtdob).val(createddate)
+                    $(txtaddress).val(data1.employeedata.address)
+
+
+
+                    $(".tblshowsave").show();
+                    $(".tblnotshowsave").hide();
+                    $(tbledt + empid).hide();
+                    $(tblsave + empid).show();
+                    $(tblshowsave + empid).show();
+                    $(tblshowsavecls + empid).hide();
+                    $(tblddltrdo + empid).show();
+                    $(empname + empid).show();
+                    $(txtbith + empid).show();
+                    $(tbledtrdo + empid).show();
+                    $(tbledtbutton + empid).show();
+                    $(tbladdress + empid).show();
                 }
-                $("#ddldrop_" + empid).html(markup).show();
-             
             }
 
         });
@@ -164,33 +195,72 @@
 
        // tbledt = "#tbledt_" + empid;
        // tblsave = "#tblsave_" + empid;
-        $(".tblshowsave").show();
-        $(".tblnotshowsave").hide();
-        $(tbledt + empid).hide();
-        $(tblsave + empid).show();
-        $(tblshowsave + empid).show();
-        $(tblshowsavecls + empid).hide();
-        $(tblddltrdo + empid).show();
-        $(empname + empid).show();
-        $(txtbith + empid).show();
-        $(tbledtrdo + empid).show();
-        $(tbledtbutton + empid).show();
+
 
 
     }
+  
 
-
- 
+    function converttoDate(str) {
+        var date = new Date(str),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2),
+            Hrs = (date.getHours()),
+            mnts = (date.getMinutes()),
+            sec = (date.getSeconds());
+        return dd = [mnth,day, date.getFullYear()].join("/");
+    }
 
     function Savedata(empid) {
-        $(tblsave + empid).hide();
-        $(tbledt + empid).show();
+        debugger;
+      //  $(".tblshowsave").show();
+      //  $(".tblnotshowsave").hide();
+        var txtemployee = "#txtemployee_" + empid;
+        var txtdob_ = "#txtdob_" + empid;
+        var txtaddress = "#txtaddress_" + empid;
+        var ddldrop = "#ddldrop_" + empid;
+        var RDOCHECKED = "#RDOCHECKED_" + empid;
+        var nameeditrdogender = "editrdogender_" + empid;
+        var hdchkval = "#hdchkval_" + empid;
+       
+        var checkedevent = ".checkedevent_" + empid;
+        $(hdchkval).val('')
+        var array = [];
+        $(checkedevent + ':checkbox:checked').each(function (i) {
+            array.push($(this).val());
+         
+        });
+        $(hdchkval).val(array)
 
-        $(tblshowsave + empid).hUrlde();
-        $(empname + empid).hide();
-        $(txtbith + empid).hide();
-        $(tbledtrdo + empid).hide();
-        $(tbledtbutton + empid).hide();
+
+       // var rdoval = $(RDOCHECKED + 'input[name="' + nameeditrdogender+'"]:checked').val();
+        var rdoval = $('input[name="' + nameeditrdogender + '"]:checked').val();
+        
+             $.ajax({
+                    type: 'POST',
+                 url: '@Url.Action("Update_Employee_data","Home")',
+                 data: { empid: empid, txtemployee: $(txtemployee).val(), txtdob: $(txtdob_).val(), rdogender: rdoval, txtaddress: $(txtaddress).val(), ddlstate: $(ddldrop).val(), chkhobbye: $(hdchkval).val() },
+                    success: function (response) {
+
+
+
+
+
+                    }
+
+                });
+
+
+        //$(tbledt + empid).hide();
+        //$(tblsave + empid).hide();
+        //$(tblshowsave + empid).hide();
+        //$(tblshowsavecls + empid).hide();
+        //$(tblddltrdo + empid).hide();
+        //$(empname + empid).hide();
+        //$(txtbith + empid).hide();
+        //$(tbledtrdo + empid).hide();
+        //$(tbledtbutton + empid).hide();
+      //  $(tbladdress + empid).show();
 
     }
 
