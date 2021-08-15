@@ -54,18 +54,18 @@
                 <div class="tblshowsave tblshowsave_@item.Employee_ID">
                     @item.Employee_Name
 
-                    </div>
-                    <div style="display:none" class="form-group tblnotshowsave" id="empname_@item.Employee_ID">
-                        <input type="text" class="form-control" id="txtemployee_@item.Employee_ID" name="txtemployee_@item.Employee_ID" placeholder="Employee Name">
-                    </div>
+                </div>
+                <div style="display:none" class="form-group tblnotshowsave" id="empname_@item.Employee_ID">
+                    <input type="text" class="form-control" id="txtemployee_@item.Employee_ID" name="txtemployee_@item.Employee_ID" placeholder="Employee Name">
+                </div>
             </td>
             <td>
                 <div class="tblshowsave  tblshowsave_@item.Employee_ID">
                     @item.dob
-                    </div>
-                    <div style="display:none" class="form-group tblnotshowsave" id="txtbith_@item.Employee_ID">
-                        <input type="datetime" class="form-control" id="txtdob_@item.Employee_ID" name="txtdob_@item.Employee_ID" placeholder="enter date of birth">
-                    </div>
+                </div>
+                <div style="display:none" class="form-group tblnotshowsave" id="txtbith_@item.Employee_ID">
+                    <input type="datetime" class="form-control" id="txtdob_@item.Employee_ID" name="txtdob_@item.Employee_ID" placeholder="enter date of birth">
+                </div>
             </td>
             <td>
                 <div class="tblshowsave  tblshowsave_@item.Employee_ID">
@@ -78,13 +78,13 @@
             <td>
                 <div class="tblshowsave  tblshowsave_@item.Employee_ID">
                     @item.gender
-                    </div>
+                </div>
                 <div style="display:none" class="form-group tblnotshowsave" id="tbledtrdo_@item.Employee_ID">
 
 
-                    Male <input class="form-check-input RDOCHECKED_@item.Employee_ID" @chMkval type="radio" name="editrdogender_@item.Employee_ID"    value="M">
+                    Male <input class="form-check-input RDOCHECKED_@item.Employee_ID" @chMkval type="radio" name="editrdogender_@item.Employee_ID" value="M">
                     Female
-                    <input class="form-check-input RDOCHECKED_@item.Employee_ID" type="radio" @chFkval name="editrdogender_@item.Employee_ID"    value="F">
+                    <input class="form-check-input RDOCHECKED_@item.Employee_ID" type="radio" @chFkval name="editrdogender_@item.Employee_ID" value="F">
                 </div>
 
             </td>
@@ -93,12 +93,12 @@
 
                     @item.statename
 
-                   
+
 
                 </div>
                 <div style="display:none" class="form-group tblnotshowsave" id="tblddltrdo_@item.Employee_ID">
 
-                   
+
 
                     <select id="ddldrop_@item.Employee_ID" name="ddldrop_@item.Employee_ID">
                         <option>select</option>
@@ -108,12 +108,12 @@
 
             </td>
             <td>
-                <div  class="tblshowsave  tblshowsave_@item.Employee_ID">
+                <div class="tblshowsave  tblshowsave_@item.Employee_ID">
                     @hobyss.TrimStart(',');
                 </div>
-                <div style="display:none" class="form-group tblnotshowsave" id="tbledtbutton_@item.Employee_ID" >
+                <div style="display:none" class="form-group tblnotshowsave" id="tbledtbutton_@item.Employee_ID">
                     <div class="form-check">
-                       
+
 
                         <input class="form-check-input checkedevent_@item.Employee_ID" type="checkbox" @chkcook value="Cooking" name="editchkhobbye">
                         <label class="form-check-label" for="chkcook">
@@ -140,8 +140,12 @@
                 <button type="button" class="btnedit" onclick="Editdata('@item.Employee_ID')">Edit</button>
 
             </td>
-            <td style="display:none" id="tblsave_@item.Employee_ID"  class="tblnotshowsave">
+            <td style="display:none" id="tblsave_@item.Employee_ID" class="tblnotshowsave">
                 <button type="button" class="btnedit" onclick="Savedata('@item.Employee_ID')">Save</button>
+
+            </td>
+            <td>
+                <button type="button" class="btndelete" onclick="deletedata('@item.Employee_ID')">Delete</button>
 
             </td>
         </tr>

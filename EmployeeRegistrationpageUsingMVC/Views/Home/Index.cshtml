@@ -11,7 +11,7 @@
 
                 <div class="form-group">
                     <label for="txtemployee">Employeem Name</label>
-                    <input type="text" class="form-control" id="txtemployee" name="txtemployee" placeholder="Employee Name">
+                    <input type="text"  class="form-control" id="txtemployee" name="txtemployee" placeholder="Employee Name">
                 </div>
                 <div class="form-group">
                     <label for="txtdob">Date of birth</label>
@@ -103,25 +103,26 @@
 
 
     $('#btnsubmits').click(function () {
-        alert($('input[name="rdogender"]:checked').val());
-      var rdoval=  $('input[name="rdogender"]:checked').val();
+        if ($('#txtemployee').val() == "" && $('#txtaddress').val() == "") {
+            alert($('input[name="rdogender"]:checked').val());
+            var rdoval = $('input[name="rdogender"]:checked').val();
 
-             $.ajax({
-                    type: 'POST',
-                 url: '@Url.Action("Add_Employee_data","Home")',
-                 data: { txtemployee: $("#txtemployee").val(), txtdob: $("#txtdob").val(), rdogender: rdoval, txtaddress: $("#txtaddress").val(), ddlstate: $("#ddlstate").val(), chkhobbye: $('#hdchkval').val() },
-                    success: function (response) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Add_Employee_data","Home")',
+                data: { txtemployee: $("#txtemployee").val(), txtdob: $("#txtdob").val(), rdogender: rdoval, txtaddress: $("#txtaddress").val(), ddlstate: $("#ddlstate").val(), chkhobbye: $('#hdchkval').val() },
+                success: function (response) {
 
-
-
-
-
-                    }
-
-                });
+                    $('#tblempdata').html(response);
 
 
-        })
+
+                }
+
+            });
+
+        }
+      })
 
 </script>
 
@@ -154,7 +155,7 @@
                 debugger;
                 $(ddldrop).empty()
                 if (data1.status = "Success") {
-                  
+
                     var markup = "<option value='0'>Select State</option>";
                     for (var x = 0; x < data1.statelist.length; x++) {
                         if (data1.statelist[x].stateid == data1.employeedata.state) {
@@ -165,7 +166,7 @@
                         }
                     }
                     $("#ddldrop_" + empid).html(markup).show();
-                   
+
                     var date = new Date(parseInt((data1.employeedata.dob).match(/\d+/)[0]))
                     var createddate = converttoDate(date);
 
@@ -199,7 +200,7 @@
 
 
     }
-  
+
 
     function converttoDate(str) {
         var date = new Date(str),
@@ -213,7 +214,7 @@
 
     function Savedata(empid) {
         debugger;
-    
+
         var txtemployee = "#txtemployee_" + empid;
         var txtdob_ = "#txtdob_" + empid;
         var txtaddress = "#txtaddress_" + empid;
@@ -221,20 +222,20 @@
         var RDOCHECKED = "#RDOCHECKED_" + empid;
         var nameeditrdogender = "editrdogender_" + empid;
         var hdchkval = "#hdchkval_" + empid;
-       
+
         var checkedevent = ".checkedevent_" + empid;
         $(hdchkval).val('')
         var array = [];
         $(checkedevent + ':checkbox:checked').each(function (i) {
             array.push($(this).val());
-         
+
         });
         $(hdchkval).val(array)
 
 
        // var rdoval = $(RDOCHECKED + 'input[name="' + nameeditrdogender+'"]:checked').val();
         var rdoval = $('input[name="' + nameeditrdogender + '"]:checked').val();
-        
+
              $.ajax({
                     type: 'POST',
                  url: '@Url.Action("Update_Employee_data","Home")',
@@ -263,7 +264,20 @@
       //  $(tbladdress + empid).show();
 
     }
+    function deletedata(empid) {
+         $.ajax({
+                    type: 'POST',
+                 url: '@Url.Action("Delete_Employee_data","Home")',
+                 data: { empid: empid },
+                    success: function (response) {
 
+                        $('#tblempdata').html(response);
+
+                    }
+
+                });
+
+    }
 
 
 </script>

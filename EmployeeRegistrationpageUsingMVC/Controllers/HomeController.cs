@@ -79,28 +79,6 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
 
             }
 
-
-
-
-            //Employeedata tbl = new Employeedata();
-            //tbl.Employee_Name = txtemployee;
-            //tbl.dob = txtdob;
-            //tbl.gender = rdogender;
-            //tbl.address = txtaddress;
-            //tbl.state = ddlstate;
-            //db.Employeedatas.Add(tbl);
-            //db.SaveChanges();
-
-            //foreach (string hoby in splitstr)
-            //{
-            //    tblHoby tblh = new tblHoby();
-            //    tblh.hobyname = hoby;
-            //    tblh.employeeid = tbl.Employee_ID;
-
-            //    db.tblHobies.Add(tblh);
-            //    db.SaveChanges();
-
-            //}
             List<EmployeeViewModel> listviewmodel = bindempdata();
 
             return PartialView("_Employeepart", listviewmodel);
@@ -162,6 +140,28 @@ namespace EmployeeRegistrationpageUsingMVC.Controllers
             }
         }
 
+
+
+        public ActionResult Delete_Employee_data(int empid)
+        {
+            var employeedata = db.Employeedatas.Where(x => x.Employee_ID == empid).FirstOrDefault();
+            if (employeedata != null)
+            {
+                db.Employeedatas.Remove(employeedata);
+
+                var tblhdel = db.tblHobies.Where(x => x.employeeid == empid).ToList();
+                db.tblHobies.RemoveRange(tblhdel);
+                db.SaveChanges();
+                //    return Json(new { statelist = statelist, employeedata = employeedata, status = "Success" }, JsonRequestBehavior.AllowGet);
+
+            }
+           
+            List<EmployeeViewModel> listviewmodel = bindempdata();
+
+            return PartialView("_Employeepart", listviewmodel);
+        }
+        
+        
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
